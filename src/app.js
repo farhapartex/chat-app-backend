@@ -5,7 +5,7 @@ import rateLimit from 'express-rate-limit';
 import compression from 'compression';
 import morgan from 'morgan';
 import authRoutes from './routes/auth.js';
-import roomRoutes from './routes/rooms.js';
+import roomRoutes from './routes/room.js';
 import messageRoutes from './routes/messages.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import {

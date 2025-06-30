@@ -1,16 +1,17 @@
 import mongoose from "mongoose";
-import { NODE_ENV, MONGODB_URI } from "../utils/constants";
+import { NODE_ENV, MONGODB_URI } from "../utils/constants.js";
 
 const connectionOptions = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     maxPoolSize: 10,
     minPoolSize: 5,
     serverSelectionTimeoutMS: 5000,
     socketTimeoutMS: 45000,
     connectTimeoutMS: 10000,
-    bufferMaxEntries: 0,
-    bufferCommands: false,
-    autoCreate: true,
-    autoIndex: NODE_ENV === "development",
+    heartbeatFrequencyMS: 10000,
+    retryWrites: true,
+    compressors: 'snappy,zlib',
 }
 
 export const connectDB = async () => {
@@ -19,6 +20,10 @@ export const connectDB = async () => {
         if (!MONGODB_URI) {
             throw new Error("MONGODB_URI is not defined. Please set it in your environment variables.");
         }
+        if (NODE_ENV === 'development') {
+            mongoose.set('autoIndex', true);
+        }
+
         const connection = await mongoose.connect(MONGODB_URI, connectionOptions);
         console.log(`MongoDB connected: ${connection.connection.host}`);
         setupConnectionEventHandlers();

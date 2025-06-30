@@ -1,6 +1,6 @@
-import { Room } from '../models/Room.js';
-import { User } from '../models/User.js';
-import { Message } from '../models/Message.js';
+import { Room } from '../models/room.js';
+import { User } from '../models/user.js';
+import { Message } from '../models/message.js';
 import {
     ROOM_TYPES,
     ERROR_MESSAGES,
