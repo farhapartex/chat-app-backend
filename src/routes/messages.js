@@ -288,19 +288,19 @@ const validateConversationLimit = [
 
 
 const handleValidationErrors = (req, res, next) => {
-    // const errors = validationResult(req);
+    const errors = validationResult(req);
 
-    // if (!errors.isEmpty()) {
-    //     return res.status(422).json({
-    //         success: false,
-    //         error: 'Validation Error',
-    //         message: 'Please check your input data',
-    //         details: errors.array().reduce((acc, error) => {
-    //             acc[error.path] = error.msg;
-    //             return acc;
-    //         }, {})
-    //     });
-    // }
+    if (!errors.isEmpty()) {
+        return res.status(422).json({
+            success: false,
+            error: 'Validation Error',
+            message: 'Please check your input data',
+            details: errors.array().reduce((acc, error) => {
+                acc[error.path] = error.msg;
+                return acc;
+            }, {})
+        });
+    }
 
     next();
 };
